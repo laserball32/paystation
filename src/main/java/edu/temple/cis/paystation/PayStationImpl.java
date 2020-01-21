@@ -24,7 +24,7 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
-
+    private int moneyCollected;
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
@@ -46,9 +46,16 @@ public class PayStationImpl implements PayStation {
 
     @Override
     public Receipt buy() {
+    	
         Receipt r = new ReceiptImpl(timeBought);
+        moneyCollected += r.value() * 5 / 2;
         reset();
         return r;
+    }
+    public int empty() {
+    	int temp = moneyCollected;
+    	moneyCollected = 0;
+    	return temp;
     }
 
     @Override
