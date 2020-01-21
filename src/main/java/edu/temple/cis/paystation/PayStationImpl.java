@@ -24,7 +24,7 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
-    private int moneyCollected;
+    private static int moneyCollected;
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {

@@ -81,6 +81,23 @@ public class PayStationImplTest {
         assertEquals("Receipt value must be 16 min.",
                 16, receipt.value());
     }
+    
+    /**
+     * Calls Empty and should return the total amount collected before last empty
+     **/
+    @Test
+    public void shouldReturnTotalAmountCollected() throws IllegalCoinException {
+    	ps.empty();
+    	ps.addPayment(10);
+    	ps.addPayment(5);
+    	ps.addPayment(25);
+    	ps.addPayment(25);
+    	assertEquals("The value returned should be 65",
+                65, ps.empty());
+    	
+
+    }
+    
 
     /**
      * Buy for 100 cents and verify the receipt
