@@ -37,6 +37,7 @@ public class PayStationImpl implements PayStation {
         }
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
+        moneyCollected = insertedSoFar;
     }
 
     @Override
