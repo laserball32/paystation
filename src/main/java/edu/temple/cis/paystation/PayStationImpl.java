@@ -60,8 +60,9 @@ public class PayStationImpl implements PayStation {
     }
 
     @Override
-    public void cancel() {
+    public int cancel() {
         reset();
+        return insertedSoFar;
     }
     
     private void reset() {
