@@ -55,6 +55,5 @@ public interface PayStation {
      * @return 
      */
     public Map<Integer, Integer> cancel();
-    
-    public int empty();
+ 
 }
