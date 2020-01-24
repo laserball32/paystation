@@ -85,7 +85,6 @@ public class PayStationImpl implements PayStation {
     	Map<Integer, Integer> returnedCoins = new HashMap<Integer, Integer>();
     	returnedCoins.putAll(coins);
         reset();
-       
 		return returnedCoins; 
     }
     

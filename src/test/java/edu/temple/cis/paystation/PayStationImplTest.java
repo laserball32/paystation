@@ -124,6 +124,31 @@ public class PayStationImplTest {
         assertEquals("Receipt value must be 16 min.",
                 16, receipt.value());
     }
+    
+    /**
+     * Calls Empty and should return the total amount collected before last empty
+     **/
+    @Test
+    public void shouldReturnTotalAmountCollected() throws IllegalCoinException {
+    	ps.addPayment(10);
+    	ps.addPayment(5);
+    	ps.addPayment(25);
+    	ps.addPayment(25);
+    	assertEquals("The value returned should be 65",
+                65, ps.empty());
+    	
+
+    }
+    
+    //Canceled entry does not add to the amount returned by empty.
+    public void shouldReturnZero() throws IllegalCoinException{
+    	ps.addPayment(10);
+    	ps.addPayment(25);
+    	ps.cancel();
+    	assertEquals("The value returned should be 0",
+                0, ps.cancel());
+    }
+    
 
     /**
      * Buy for 100 cents and verify the receipt
