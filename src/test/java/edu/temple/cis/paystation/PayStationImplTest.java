@@ -12,6 +12,8 @@
 package edu.temple.cis.paystation;
 
 import org.junit.Test;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 import org.junit.Before;
 
@@ -24,6 +26,47 @@ public class PayStationImplTest {
         ps = new PayStationImpl();
     }
 
+    
+    /**
+     * Entering 50 cents should make empty return 50.
+     */
+    @Test
+    public void emptyShouldReturnTotalAmountEntered() throws IllegalCoinException {
+    	ps.addPayment(25);
+    	ps.addPayment(25);
+    	assertEquals("Empty should return 50.", 50, ps.empty());
+    }
+    
+    /**
+     * Calls to empty should reset the total.
+     */
+    
+    @Test
+    public void emptyShouldResetTotalToZero() throws IllegalCoinException {
+    	ps.addPayment(25);
+    	ps.empty();
+    	/**
+    	 * coins returned should be 0 if cancelled after emptied! 
+    	 * less hacky way of changing visibility of insertedSoFar or getting it via a getter
+    	 */
+    	Map<Integer, Integer> temp = ps.cancel();
+    	assertEquals("Nickels should be zero.", (Integer)0, temp.get(5));
+    	assertEquals("Dimes should be zero.", (Integer)0, temp.get(10));
+    	assertEquals("Quarters should be zero.", (Integer)0, temp.get(25));
+    }
+    
+    /**
+     * Canceled entry does not add to the amount returned by empty.
+     */
+    @Test
+    public void canceledEntryDoesNotAddToEmpty() throws IllegalCoinException {
+    	ps.addPayment(25);
+    	ps.addPayment(25);
+    	assertEquals("Empty should return 50.", 50, ps.empty());
+    	ps.addPayment(25);
+    	assertEquals("Empty should return 25.", 25, ps.empty());
+    }
+    
     /**
      * Entering 5 cents should make the display report 2 minutes parking time.
      */

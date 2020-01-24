@@ -19,19 +19,41 @@
  */
 package edu.temple.cis.paystation;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
-    private int moneyCollected;
+    private Map<Integer, Integer> coins = new HashMap<Integer, Integer>();  
+    
+    private void storeChange(int coin) {
+    	if (coins.containsKey(coin))
+    		coins.put(coin, coins.get(coin)+1);
+    	else
+    	{
+    		coins.putIfAbsent(5, 0);
+    		coins.putIfAbsent(10, 0);
+    		coins.putIfAbsent(25, 0);
+    	}
+    }
+    
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
         switch (coinValue) {
-            case 5: break;
-            case 10: break;
-            case 25: break;
+            case 5: 
+            	storeChange(5);
+            	
+            	break;
+            case 10: 
+            	storeChange(10);
+            	break;
+            
+            case 25:
+            	storeChange(25);
+            	break;
             default:
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
@@ -48,22 +70,27 @@ public class PayStationImpl implements PayStation {
     public Receipt buy() {
     	
         Receipt r = new ReceiptImpl(timeBought);
-        moneyCollected += r.value() * 5 / 2;
         reset();
+        
         return r;
     }
     public int empty() {
-    	int temp = moneyCollected;
-    	moneyCollected = 0;
+    	int temp = insertedSoFar;
+    	insertedSoFar = 0;
     	return temp;
     }
 
     @Override
-    public void cancel() {
+	public Map<Integer, Integer> cancel() {
+    	Map<Integer, Integer> returnedCoins = new HashMap<Integer, Integer>();
+    	returnedCoins.putAll(coins);
         reset();
+       
+		return returnedCoins; 
     }
     
     private void reset() {
+    	coins.clear();
         timeBought = insertedSoFar = 0;
     }
 }
