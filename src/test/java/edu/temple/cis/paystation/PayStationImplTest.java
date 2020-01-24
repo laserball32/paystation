@@ -140,15 +140,6 @@ public class PayStationImplTest {
 
     }
     
-    //Canceled entry does not add to the amount returned by empty.
-    public void shouldReturnZero() throws IllegalCoinException{
-    	ps.addPayment(10);
-    	ps.addPayment(25);
-    	ps.cancel();
-    	assertEquals("The value returned should be 0",
-                0, ps.cancel());
-    }
-    
 
     /**
      * Buy for 100 cents and verify the receipt
