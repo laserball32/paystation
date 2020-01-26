@@ -43,11 +43,30 @@ public class PayStationImplTest {
     	ps.addPayment(10);
     	ps.cancel();
     	Map<Integer, Integer> temp = ps.cancel();
-    	assertEquals("25 should return nothing", (Integer)0, temp.get(25));
-    	assertEquals("10 should return nothing", (Integer)0, temp.get(10));
-    	assertEquals("5 should return nothing", (Integer)0, temp.get(5));
+    	assertEquals("25 should return 0", (Integer)0, temp.get(25));
+    	assertEquals("10 should return 0", (Integer)0, temp.get(10));
+    	assertEquals("5 should return 0", (Integer)0, temp.get(5));
 
     }
+    
+    //Call to buy clears the map.
+    @Test
+    public void buyShouldClearMap() throws IllegalCoinException{
+    	ps.addPayment(10);
+    	ps.addPayment(10);
+    	ps.buy();
+    	Map<Integer, Integer> temp = ps.cancel();
+    	assertEquals("25 should return 0", (Integer)0, temp.get(25));
+    	assertEquals("10 should return 0", (Integer)0, temp.get(10));
+    	assertEquals("5 should return 0", (Integer)0, temp.get(5));
+    	
+    }
+    
+    
+    
+    
+    
+    
     /**
      * Calls to empty should reset the total.
      */
