@@ -52,6 +52,8 @@ public interface PayStation {
     
     public int empty();
 
+    
+    public Map<Integer,Integer> getMap();
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.
      * @return 

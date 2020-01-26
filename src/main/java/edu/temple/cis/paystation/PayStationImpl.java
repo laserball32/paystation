@@ -86,6 +86,10 @@ public class PayStationImpl implements PayStation {
     	insertedSoFar = 0;
     	return temp;
     }
+    
+    public Map<Integer,Integer> getMap(){
+    	return coins;
+    }
 
     @Override
 	public Map<Integer, Integer> cancel() {
@@ -96,7 +100,10 @@ public class PayStationImpl implements PayStation {
     }
     
     private void reset() {
-    	coins.clear();
+    	coins.put(25, 0);
+    	coins.put(10, 0);
+    	coins.put(5, 0);
+
         timeBought = insertedSoFar = 0;
     }
 }

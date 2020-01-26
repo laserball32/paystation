@@ -37,6 +37,17 @@ public class PayStationImplTest {
     	assertEquals("Empty should return 50.", 50, ps.empty());
     }
     
+    //Call to cancel clears the map.
+    @Test
+    public void cancelShouldClearMap() throws IllegalCoinException{
+    	ps.addPayment(10);
+    	ps.cancel();
+    	Map<Integer, Integer> temp = ps.cancel();
+    	assertEquals("25 should return nothing", (Integer)0, temp.get(25));
+    	assertEquals("10 should return nothing", (Integer)0, temp.get(10));
+    	assertEquals("5 should return nothing", (Integer)0, temp.get(5));
+
+    }
     /**
      * Calls to empty should reset the total.
      */
