@@ -29,6 +29,9 @@ public class PayStationImpl implements PayStation {
     private Map<Integer, Integer> coins = new HashMap<Integer, Integer>();  
     
     private void storeChange(int coin) {
+    	coins.putIfAbsent(5, 0);
+		coins.putIfAbsent(10, 0);
+		coins.putIfAbsent(25, 0);
     	if (coins.containsKey(coin))
     		coins.put(coin, coins.get(coin)+1);
     	else
@@ -74,6 +77,10 @@ public class PayStationImpl implements PayStation {
         
         return r;
     }
+    public int getTotal() {
+    	return insertedSoFar;
+    }
+    
     public int empty() {
     	int temp = insertedSoFar;
     	insertedSoFar = 0;

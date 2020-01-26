@@ -48,6 +48,8 @@ public interface PayStation {
      */
     public Receipt buy();
     
+    public int getTotal();
+    
     public int empty();
 
     /**

@@ -49,10 +49,11 @@ public class PayStationImplTest {
     	 * coins returned should be 0 if cancelled after emptied! 
     	 * less hacky way of changing visibility of insertedSoFar or getting it via a getter
     	 */
-    	Map<Integer, Integer> temp = ps.cancel();
-    	assertEquals("Nickels should be zero.", (Integer)0, temp.get(5));
-    	assertEquals("Dimes should be zero.", (Integer)0, temp.get(10));
-    	assertEquals("Quarters should be zero.", (Integer)0, temp.get(25));
+    	//Map<Integer, Integer> temp = ps.cancel();
+    	//assertEquals("Nickels should be zero.", (Integer)0, temp.get(5));
+    	//assertEquals("Dimes should be zero.", (Integer)0, temp.get(10));
+    	//assertEquals("Quarters should be zero.", (Integer)0, temp.get(25));
+    	assertEquals("Total should be 0.", 0, ps.getTotal());
     }
     
     /**
@@ -159,6 +160,17 @@ public class PayStationImplTest {
         receipt = ps.buy();
         assertEquals(40, receipt.value());
     }
+    
+    //Call to cancel returns a map containing one coin entered.
+    @Test 
+    public void shouldReturnMapContainingOneCoin() throws IllegalCoinException {
+    	//ps.addPayment(25);
+    	ps.addPayment(25);
+    	Map<Integer, Integer> temp = ps.cancel();
+    	assertEquals("25=1,10=0,5=0", (Integer)1, temp.get(25));
+    }
+    
+    
 
     /**
      * Verify that the pay station is cleared after a buy scenario
