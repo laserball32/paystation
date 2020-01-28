@@ -29,16 +29,11 @@ public class PayStationImpl implements PayStation {
     private Map<Integer, Integer> coins = new HashMap<Integer, Integer>();  
     
     private void storeChange(int coin) {
-    	coins.putIfAbsent(5, 0);
-		coins.putIfAbsent(10, 0);
-		coins.putIfAbsent(25, 0);
     	if (coins.containsKey(coin))
     		coins.put(coin, coins.get(coin)+1);
     	else
     	{
-    		coins.putIfAbsent(5, 0);
-    		coins.putIfAbsent(10, 0);
-    		coins.putIfAbsent(25, 0);
+    		coins.putIfAbsent(coin, 1);
     	}
     }
     
@@ -100,9 +95,7 @@ public class PayStationImpl implements PayStation {
     }
     
     private void reset() {
-    	coins.put(25, 0);
-    	coins.put(10, 0);
-    	coins.put(5, 0);
+    	coins.clear();
 
         timeBought = insertedSoFar = 0;
     }

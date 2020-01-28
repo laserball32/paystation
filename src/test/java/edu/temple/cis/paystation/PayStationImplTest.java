@@ -43,9 +43,9 @@ public class PayStationImplTest {
     	ps.addPayment(10);
     	ps.cancel();
     	Map<Integer, Integer> temp = ps.cancel();
-    	assertEquals("25 should return 0", (Integer)0, temp.get(25));
-    	assertEquals("10 should return 0", (Integer)0, temp.get(10));
-    	assertEquals("5 should return 0", (Integer)0, temp.get(5));
+    	assertEquals("25 should return null", null, temp.get(25));
+    	assertEquals("10 should return null", null, temp.get(10));
+    	assertEquals("5 should return null", null, temp.get(5));
 
     }
     
@@ -56,9 +56,9 @@ public class PayStationImplTest {
     	ps.addPayment(10);
     	ps.buy();
     	Map<Integer, Integer> temp = ps.cancel();
-    	assertEquals("25 should return 0", (Integer)0, temp.get(25));
-    	assertEquals("10 should return 0", (Integer)0, temp.get(10));
-    	assertEquals("5 should return 0", (Integer)0, temp.get(5));
+    	assertEquals("25 should return null", null, temp.get(25));
+    	assertEquals("10 should return null", null, temp.get(10));
+    	assertEquals("5 should return null", null, temp.get(5));
     	
     }
     
@@ -193,12 +193,14 @@ public class PayStationImplTest {
      * 
      */
     @Test
-    public void callToCancelDoesntReturnNonExistantCoin() throws IllegalCoinException {
+    public void callToCancelReturnsNullKeyForCoinNotEntered() throws IllegalCoinException {
     	ps.addPayment(5);
     	ps.addPayment(25);
     	Map<Integer, Integer> temp = ps.cancel();
-    	//assertEquals("Dimes should be null.")
-    	// TODO
+    	assertEquals("Dimes should be null.", null, temp.get(10));
+    	assertEquals("Quarters should be 1.", (Integer)1, temp.get(25));
+    	assertEquals("Nickels should be 1.", (Integer)1, temp.get(5));
+    	
     	
     }
     
