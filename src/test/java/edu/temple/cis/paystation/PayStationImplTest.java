@@ -173,6 +173,37 @@ public class PayStationImplTest {
     
 
     /**
+     * Call to cancel returns a map containing a mixture of coins entered.
+     * @throws IllegalCoinException 
+     */
+    @Test
+    public void callToCancelReturnsMixture() throws IllegalCoinException {
+    	ps.addPayment(25);
+    	ps.addPayment(5);
+    	ps.addPayment(10);
+    	ps.addPayment(5);
+    	Map<Integer, Integer> temp = ps.cancel();
+    	assertEquals("Quarters in returnMixture should be 1.", (Integer)1, temp.get(25));
+    	assertEquals("Dimes in returnMixture should be 1.", (Integer)1, temp.get(10));
+    	assertEquals("Nickels in returnMixture should be 2.", (Integer)2, temp.get(5));
+    }
+    
+    /**
+     * Call to cancel returns a map that does not contain a key for a coin not entered.
+     * 
+     */
+    @Test
+    public void callToCancelDoesntReturnNonExistantCoin() throws IllegalCoinException {
+    	ps.addPayment(5);
+    	ps.addPayment(25);
+    	Map<Integer, Integer> temp = ps.cancel();
+    	//assertEquals("Dimes should be null.")
+    	// TODO
+    	
+    }
+    
+    
+    /**
      * Buy for 100 cents and verify the receipt
      */
     @Test
@@ -188,7 +219,7 @@ public class PayStationImplTest {
 
         Receipt receipt;
         receipt = ps.buy();
-        assertEquals(40, receipt.value());
+        assertEquals("Receipt should be 40.",40, receipt.value());
     }
     
     //Call to cancel returns a map containing one coin entered.
